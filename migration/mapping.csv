@@ -1,0 +1,6 @@
+r_file,r_symbol,r_lines,py_file,py_symbol,status,parity_status,notes
+cjoint.R,clean.names,57-67,pyjoint/naming.py,clean_names,pending,,"String cleaning function - removes punctuation, symbols, spaces"
+cjoint.R,cluster_se_glm,28-54,pyjoint/vcov.py,cluster_se_glm,pending,,"Cluster-robust variance with small-sample correction"
+cjoint.R,amce,70-845,pyjoint/estimator.py,amce,pending,,"Main estimation function - AMCE and ACIE"
+cjoint.R,makeDesign,1062-1164,pyjoint/design.py,make_design,pending,,"Design matrix creation for non-uniform randomization"
+cjoint.R,compute_dependencies,1043-1060,pyjoint/design.py,compute_dependencies,pending,,"Compute attribute dependencies from design matrix"
