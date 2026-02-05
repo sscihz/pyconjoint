@@ -226,7 +226,7 @@ def amce(
     
     # Fit model
     model_results = _fit_model(
-        X, y, weights_clean, cleaned_data, respondent_id_clean
+        X, y, coef_names, weights_clean, cleaned_data, respondent_id_clean
     )
     
     # Compute variance-covariance matrix
@@ -384,6 +384,7 @@ def _build_model_matrix(
 def _fit_model(
     X: np.ndarray,
     y: np.ndarray,
+    coef_names: List[str],
     weights: Optional[str],
     data: pd.DataFrame,
     respondent_id: Optional[str]
@@ -394,13 +395,16 @@ def _fit_model(
     except ImportError:
         raise ImportError("statsmodels is required for model fitting")
     
+    # Convert X to DataFrame to get proper coefficient names
+    X_df = pd.DataFrame(X, columns=coef_names)
+    
     if weights is not None:
         # Weighted least squares
         w = data[weights].values
-        model = sm.WLS(y, X, weights=w).fit()
+        model = sm.WLS(y, X_df, weights=w).fit()
     else:
         # OLS
-        model = sm.OLS(y, X).fit()
+        model = sm.OLS(y, X_df).fit()
     
     return {
         'model': model,

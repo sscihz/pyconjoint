@@ -35,12 +35,17 @@ def clean_names(s: str) -> str:
     >>> clean_names("Education:Language Skills")
     'Education:LanguageSkills'
     """
-    # Remove punctuation (P), symbols (S), and separators (Z) using Unicode categories
-    # \\p{P} matches punctuation
-    # \\p{S} matches symbols  
-    # \\p{Z} matches separators (space, tabs, etc.)
-    # In Python re, we use equivalent character classes
-    cleaned = re.sub(r'[\s\p{P}\p{S}]+', '', s, flags=re.UNICODE)
+    # Remove spaces and most punctuation/symbols while preserving : and * for interactions
+    # R's clean.names uses gsub("[\\p{P}\\p{S}\\p{Z}]","",x,perl=T) 
+    # But in practice, formula parsing handles : and * separately
+    # So we remove whitespace and punctuation except interaction operators
+    import string
+    # Remove all whitespace
+    cleaned = ''.join(s.split())
+    # Remove punctuation except : and * (used in formulas)
+    punct_to_remove = string.punctuation.replace(':', '').replace('*', '')
+    for p in punct_to_remove:
+        cleaned = cleaned.replace(p, '')
     return cleaned
 
 

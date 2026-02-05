@@ -58,8 +58,8 @@ def cluster_se_glm(model, cluster: np.ndarray) -> np.ndarray:
     # Drop unused cluster indicators, if cluster var has unique values
     # (R's droplevels equivalent - handled by numpy unique)
     
-    N = model.nobs  # Number of observations
-    K = model.rank    # Number of parameters
+    N = int(model.nobs)  # Number of observations
+    K = len(model.params)  # Number of parameters
     M = len(np.unique(cluster))  # Number of clusters
     
     if N != len(cluster):
@@ -73,8 +73,8 @@ def cluster_se_glm(model, cluster: np.ndarray) -> np.ndarray:
     
     # Compute influence functions (u_i = score_i = x_i * e_i)
     # For OLS, this is: x_i * residual_i
-    X = model.model_exog
-    residuals = model.resid_response
+    X = model.model.exog
+    residuals = np.asarray(model.resid)
     
     # Compute score for each observation
     u = X * residuals[:, np.newaxis]  # Shape: (N, K)
@@ -244,8 +244,8 @@ def hc2_vcov(model: object) -> np.ndarray:
     >>> model = sm.OLS(y, X).fit()
     >>> vcov_hc2 = hc2_vcov(model)
     """
-    X = model.model_exog
-    residuals = model.resid_response
+    X = np.asarray(model.model.exog)
+    residuals = np.asarray(model.resid)
     n = X.shape[0]
     
     # Compute hat matrix: H = X(X'X)^{-1}X'
