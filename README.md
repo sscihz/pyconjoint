@@ -340,6 +340,32 @@ PyJoint is generally faster than the R implementation:
 | Variance adjustment | 0.08 | 0.05 | 1.6× |
 | Large dataset (10K) | 2.5 | 1.8 | 1.4× |
 
+### Validation & Parity
+
+Recent parity checks (run on 2026-02-05) use the CRAN `cjoint` datasets and
+compare PyJoint against cjoint summary outputs.
+
+- Data fixtures: `data/immigrationconjoint.rda`, `data/immigrationconjoint.csv`,
+  and deterministic weights in `data/immigrationconjoint_weights.csv`.
+- R expected outputs are generated via `scripts/export_cjoint_results.R` and
+  stored in `data/cjoint_expected_results.json`.
+- Python parity tests: `pytest -q` (see `tests/test_cjoint_parity.py`).
+- Reports: `reports/method_comparison.md`, `reports/cjoint_tests.md`,
+  `reports/pyjoint_tests.md`.
+
+### Performance Notes
+
+If you are profiling `amce()`, the hottest paths are typically model-matrix
+construction and variance estimation. Possible speedups:
+
+- Use vectorized `pandas.get_dummies`/`patsy` for categorical expansion rather
+  than per-level Python loops in `_build_model_matrix`.
+- Avoid allocating the full hat matrix in `hc2_vcov`; compute the diagonal via
+  `diag(X @ (X'X)^{-1} @ X')` using `einsum` or row-wise dot products.
+- Skip `fix_vcov` work entirely when `varprob` is all zeros (uniform designs).
+- Replace per-row cluster accumulation in `cluster_se_glm` with `np.add.at` or
+  `pandas` groupby aggregation to reduce Python overhead.
+
 ## Dependencies
 
 - Python 3.9+
