@@ -1,0 +1,11 @@
+{
+  "Education": ["no formal", "4th grade", "8th grade", "high school", "two-year college", "college degree", "graduate degree"],
+  "Gender": ["female", "male"],
+  "Country of Origin": ["India", "Germany", "France", "Mexico", "Philippines", "Poland", "China", "Sudan", "Somalia", "Iraq"],
+  "Reason for Application": ["reunite with family", "seek better job", "escape persecution"],
+  "Job": ["janitor", "waiter", "child care provider", "gardener", "financial analyst", "construction worker", "teacher", "computer programmer", "nurse", "research scientist", "doctor"],
+  "Job Experience": ["none", "1-2 years", "3-5 years", "5+ years"],
+  "Job Plans": ["will look for work", "contract with employer", "interviews with employer", "no plans to look for work"],
+  "Prior Entry": ["never", "once as tourist", "many times as tourist", "six months with family", "once w/o authorization"],
+  "Language Skills": ["fluent English", "broken English", "tried English but unable", "used interpreter"]
+}

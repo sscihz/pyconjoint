@@ -58,8 +58,9 @@ def cluster_se_glm(model, cluster: np.ndarray) -> np.ndarray:
     # Drop unused cluster indicators, if cluster var has unique values
     # (R's droplevels equivalent - handled by numpy unique)
     
-    N = model.nobs  # Number of observations
-    K = model.rank    # Number of parameters
+    X = np.asarray(model.model.exog)
+    N = int(model.nobs)  # Number of observations
+    K = X.shape[1]    # Number of parameters
     M = len(np.unique(cluster))  # Number of clusters
     
     if N != len(cluster):
@@ -73,8 +74,7 @@ def cluster_se_glm(model, cluster: np.ndarray) -> np.ndarray:
     
     # Compute influence functions (u_i = score_i = x_i * e_i)
     # For OLS, this is: x_i * residual_i
-    X = model.model_exog
-    residuals = model.resid_response
+    residuals = np.asarray(model.resid)
     
     # Compute score for each observation
     u = X * residuals[:, np.newaxis]  # Shape: (N, K)
@@ -90,8 +90,8 @@ def cluster_se_glm(model, cluster: np.ndarray) -> np.ndarray:
         cluster_idx = cluster_to_idx[c]
         uj[cluster_idx, :] += u[i, :]
     
-    # Compute meat of sandwich estimator: (1/N) * uj' * uj
-    meat = (uj.T @ uj) / N
+    # Compute meat of sandwich estimator: uj' * uj
+    meat = uj.T @ uj
     
     # Get bread of sandwich estimator: X'X inverse
     # For OLS, this is (X'X)^{-1}
@@ -244,8 +244,8 @@ def hc2_vcov(model: object) -> np.ndarray:
     >>> model = sm.OLS(y, X).fit()
     >>> vcov_hc2 = hc2_vcov(model)
     """
-    X = model.model_exog
-    residuals = model.resid_response
+    X = np.asarray(model.model.exog)
+    residuals = np.asarray(model.resid)
     n = X.shape[0]
     
     # Compute hat matrix: H = X(X'X)^{-1}X'

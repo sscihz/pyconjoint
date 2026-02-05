@@ -226,15 +226,15 @@ def amce(
     
     # Fit model
     model_results = _fit_model(
-        X, y, weights_clean, cleaned_data, respondent_id_clean
+        X, y, weights_clean, cleaned_data, respondent_id_clean, coef_names
     )
     
     # Compute variance-covariance matrix
-    if weights_clean:
-        vcov_mat = model_results['vcov']
-    elif respondent_id_clean and cluster:
+    if respondent_id_clean and cluster:
         vcov_mat = cluster_se_glm(model_results['model'], 
                                    cleaned_data[respondent_id_clean].values)
+    elif weights_clean:
+        vcov_mat = model_results['vcov']
     else:
         vcov_mat = hc2_vcov(model_results['model'])
     
@@ -246,6 +246,7 @@ def amce(
     
     # Adjust variance-covariance matrix
     vcov_prof = fix_vcov(varprob_mat, vcov_mat)
+    _apply_standard_errors(estimates, vcov_prof, coef_names)
     
     # Extract baseline and continuous variable info
     baselines_dict = {}
@@ -386,14 +387,18 @@ def _fit_model(
     y: np.ndarray,
     weights: Optional[str],
     data: pd.DataFrame,
-    respondent_id: Optional[str]
+    respondent_id: Optional[str],
+    coef_names: Optional[List[str]] = None
 ) -> Dict:
     """Fit linear model (OLS or weighted)."""
     try:
         import statsmodels.api as sm
     except ImportError:
         raise ImportError("statsmodels is required for model fitting")
-    
+
+    if coef_names:
+        X = pd.DataFrame(X, columns=coef_names)
+
     if weights is not None:
         # Weighted least squares
         w = data[weights].values
@@ -402,11 +407,16 @@ def _fit_model(
         # OLS
         model = sm.OLS(y, X).fit()
     
+    params = model.params
+    if coef_names:
+        params = pd.Series(params, index=coef_names)
+
     return {
         'model': model,
         'vcov': model.cov_params(),
-        'coefficients': model.params,
-        'residuals': model.resid
+        'coefficients': params,
+        'residuals': model.resid,
+        'coef_names': coef_names
     }
 
 
@@ -421,7 +431,11 @@ def _extract_effects(
     """Extract AMCE/ACIE estimates from model results."""
     estimates = {}
     coefficients = model_results['coefficients']
-    coef_names = list(coefficients.index)
+    coef_names = model_results.get('coef_names')
+    if coef_names is None and hasattr(coefficients, "index"):
+        coef_names = list(coefficients.index)
+    if coef_names is None:
+        coef_names = []
     
     # Initialize variance probability matrix
     varprob_mat = np.zeros((len(coef_names), len(coef_names)))
@@ -472,3 +486,21 @@ def _extract_effects(
                 estimates[inter] = pd.DataFrame(results, index=row_names, columns=col_names)
     
     return estimates, varprob_mat
+
+
+def _apply_standard_errors(
+    estimates: Dict[str, pd.DataFrame],
+    vcov_prof: np.ndarray,
+    coef_names: List[str]
+) -> None:
+    """Populate standard errors in estimates in-place using vcov_prof."""
+    if vcov_prof is None or not coef_names:
+        return
+    se_map = {
+        name: float(np.sqrt(vcov_prof[idx, idx]))
+        for idx, name in enumerate(coef_names)
+    }
+    for table in estimates.values():
+        for col in table.columns:
+            if col in se_map:
+                table.loc['Std. Error', col] = se_map[col]
