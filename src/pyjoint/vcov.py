@@ -59,7 +59,7 @@ def cluster_se_glm(model, cluster: np.ndarray) -> np.ndarray:
     # (R's droplevels equivalent - handled by numpy unique)
     
     N = int(model.nobs)  # Number of observations
-    K = len(model.params)  # Number of parameters
+    K = len(model.params)  # Number of fitted parameters (including intercept)
     M = len(np.unique(cluster))  # Number of clusters
     
     if N != len(cluster):

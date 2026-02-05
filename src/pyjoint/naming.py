@@ -6,6 +6,7 @@ symbols, and spaces from variable names for safe processing.
 """
 
 import re
+import string
 from typing import List, Union
 
 
@@ -39,7 +40,6 @@ def clean_names(s: str) -> str:
     # R's clean.names uses gsub("[\\p{P}\\p{S}\\p{Z}]","",x,perl=T) 
     # But in practice, formula parsing handles : and * separately
     # So we remove whitespace and punctuation except interaction operators
-    import string
     # Remove all whitespace
     cleaned = ''.join(s.split())
     # Remove punctuation except : and * (used in formulas)

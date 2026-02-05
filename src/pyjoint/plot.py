@@ -10,6 +10,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import warnings
 from typing import Dict, List, Optional, Union
+from scipy.stats import norm
 
 from .estimator import AMCEResult
 
@@ -145,9 +146,16 @@ def plot_amce(
         if xlim is not None:
             ax.set_xlim(xlim)
         else:
-            x_min = attr_data['pe'].min() - 2 * attr_data['se'].max() * z_value
-            x_max = attr_data['pe'].max() + 2 * attr_data['se'].max() * z_value
-            ax.set_xlim(x_min, x_max)
+            # Filter out NaN values when calculating limits
+            valid_pe = attr_data['pe'].dropna()
+            valid_se = attr_data['se'].dropna()
+            if len(valid_pe) > 0 and len(valid_se) > 0:
+                x_min = valid_pe.min() - 2 * valid_se.max() * z_value
+                x_max = valid_pe.max() + 2 * valid_se.max() * z_value
+                ax.set_xlim(x_min, x_max)
+            else:
+                # Default limits if no valid data
+                ax.set_xlim(-0.5, 0.5)
         
         # Set x-ticks
         if breaks is not None:
