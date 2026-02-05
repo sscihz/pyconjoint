@@ -6,6 +6,7 @@ symbols, and spaces from variable names for safe processing.
 """
 
 import re
+import unicodedata
 from typing import List, Union
 
 
@@ -35,13 +36,11 @@ def clean_names(s: str) -> str:
     >>> clean_names("Education:Language Skills")
     'Education:LanguageSkills'
     """
-    # Remove punctuation (P), symbols (S), and separators (Z) using Unicode categories
-    # \\p{P} matches punctuation
-    # \\p{S} matches symbols  
-    # \\p{Z} matches separators (space, tabs, etc.)
-    # In Python re, we use equivalent character classes
-    cleaned = re.sub(r'[\s\p{P}\p{S}]+', '', s, flags=re.UNICODE)
-    return cleaned
+    # Python's stdlib `re` does not support Unicode \p categories, so filter
+    # by Unicode category instead.
+    return "".join(
+        ch for ch in s if unicodedata.category(ch)[0] not in {"P", "S", "Z"}
+    )
 
 
 def clean_names_vectorized(strings: List[str]) -> List[str]:

@@ -1,0 +1,364 @@
+{
+  "formula_main": ["Chosen_Immigrant ~ Gender + Education + `Country of Origin` + ", "    `Language Skills`"],
+  "formula_interact": "Chosen_Immigrant ~ Gender + Education + Gender:Education",
+  "cluster": [
+    {
+      "term": "Country of Origin:Germany",
+      "estimate": 0.0458,
+      "std_error": 0.0179
+    },
+    {
+      "term": "Country of Origin:France",
+      "estimate": 0.0206,
+      "std_error": 0.0182
+    },
+    {
+      "term": "Country of Origin:Mexico",
+      "estimate": 0.0105,
+      "std_error": 0.0182
+    },
+    {
+      "term": "Country of Origin:Philippines",
+      "estimate": 0.0282,
+      "std_error": 0.018
+    },
+    {
+      "term": "Country of Origin:Poland",
+      "estimate": 0.0306,
+      "std_error": 0.0179
+    },
+    {
+      "term": "Country of Origin:China",
+      "estimate": 0.0006,
+      "std_error": 0.018
+    },
+    {
+      "term": "Country of Origin:Sudan",
+      "estimate": -0.0196,
+      "std_error": 0.0186
+    },
+    {
+      "term": "Country of Origin:Somalia",
+      "estimate": -0.0291,
+      "std_error": 0.0183
+    },
+    {
+      "term": "Country of Origin:Iraq",
+      "estimate": -0.0855,
+      "std_error": 0.0191
+    },
+    {
+      "term": "Education:4th grade",
+      "estimate": 0.0323,
+      "std_error": 0.0153
+    },
+    {
+      "term": "Education:8th grade",
+      "estimate": 0.0591,
+      "std_error": 0.0154
+    },
+    {
+      "term": "Education:high school",
+      "estimate": 0.1192,
+      "std_error": 0.0156
+    },
+    {
+      "term": "Education:two-year college",
+      "estimate": 0.1778,
+      "std_error": 0.0156
+    },
+    {
+      "term": "Education:college degree",
+      "estimate": 0.1986,
+      "std_error": 0.016
+    },
+    {
+      "term": "Education:graduate degree",
+      "estimate": 0.1935,
+      "std_error": 0.0157
+    },
+    {
+      "term": "Gender:male",
+      "estimate": -0.0273,
+      "std_error": 0.0083
+    },
+    {
+      "term": "Language Skills:broken English",
+      "estimate": -0.0587,
+      "std_error": 0.0118
+    },
+    {
+      "term": "Language Skills:tried English but unable",
+      "estimate": -0.1264,
+      "std_error": 0.0118
+    },
+    {
+      "term": "Language Skills:used interpreter",
+      "estimate": -0.1605,
+      "std_error": 0.012
+    }
+  ],
+  "no_cluster": [
+    {
+      "term": "Country of Origin:Germany",
+      "estimate": 0.0458,
+      "std_error": 0.0184
+    },
+    {
+      "term": "Country of Origin:France",
+      "estimate": 0.0206,
+      "std_error": 0.0183
+    },
+    {
+      "term": "Country of Origin:Mexico",
+      "estimate": 0.0105,
+      "std_error": 0.0186
+    },
+    {
+      "term": "Country of Origin:Philippines",
+      "estimate": 0.0282,
+      "std_error": 0.0185
+    },
+    {
+      "term": "Country of Origin:Poland",
+      "estimate": 0.0306,
+      "std_error": 0.0183
+    },
+    {
+      "term": "Country of Origin:China",
+      "estimate": 0.0006,
+      "std_error": 0.0184
+    },
+    {
+      "term": "Country of Origin:Sudan",
+      "estimate": -0.0196,
+      "std_error": 0.0185
+    },
+    {
+      "term": "Country of Origin:Somalia",
+      "estimate": -0.0291,
+      "std_error": 0.0184
+    },
+    {
+      "term": "Country of Origin:Iraq",
+      "estimate": -0.0855,
+      "std_error": 0.0186
+    },
+    {
+      "term": "Education:4th grade",
+      "estimate": 0.0323,
+      "std_error": 0.0154
+    },
+    {
+      "term": "Education:8th grade",
+      "estimate": 0.0591,
+      "std_error": 0.0156
+    },
+    {
+      "term": "Education:high school",
+      "estimate": 0.1192,
+      "std_error": 0.0155
+    },
+    {
+      "term": "Education:two-year college",
+      "estimate": 0.1778,
+      "std_error": 0.0154
+    },
+    {
+      "term": "Education:college degree",
+      "estimate": 0.1986,
+      "std_error": 0.0156
+    },
+    {
+      "term": "Education:graduate degree",
+      "estimate": 0.1935,
+      "std_error": 0.0154
+    },
+    {
+      "term": "Gender:male",
+      "estimate": -0.0273,
+      "std_error": 0.0083
+    },
+    {
+      "term": "Language Skills:broken English",
+      "estimate": -0.0587,
+      "std_error": 0.0117
+    },
+    {
+      "term": "Language Skills:tried English but unable",
+      "estimate": -0.1264,
+      "std_error": 0.0116
+    },
+    {
+      "term": "Language Skills:used interpreter",
+      "estimate": -0.1605,
+      "std_error": 0.0116
+    }
+  ],
+  "interaction_amce": [
+    {
+      "term": "Education:4th grade",
+      "estimate": 0.0328,
+      "std_error": 0.0156
+    },
+    {
+      "term": "Education:8th grade",
+      "estimate": 0.0548,
+      "std_error": 0.0156
+    },
+    {
+      "term": "Education:high school",
+      "estimate": 0.1175,
+      "std_error": 0.0157
+    },
+    {
+      "term": "Education:two-year college",
+      "estimate": 0.1756,
+      "std_error": 0.0156
+    },
+    {
+      "term": "Education:college degree",
+      "estimate": 0.1999,
+      "std_error": 0.0156
+    },
+    {
+      "term": "Education:graduate degree",
+      "estimate": 0.1915,
+      "std_error": 0.0156
+    },
+    {
+      "term": "Gender:male",
+      "estimate": -0.0256,
+      "std_error": 0.0084
+    }
+  ],
+  "interaction_acie": [
+    {
+      "term": "Education:Gender:4th grade:male",
+      "estimate": 0.0016,
+      "std_error": 0.0311
+    },
+    {
+      "term": "Education:Gender:8th grade:male",
+      "estimate": -0.0211,
+      "std_error": 0.0313
+    },
+    {
+      "term": "Education:Gender:high school:male",
+      "estimate": -0.0094,
+      "std_error": 0.0315
+    },
+    {
+      "term": "Education:Gender:two-year college:male",
+      "estimate": -0.0406,
+      "std_error": 0.0312
+    },
+    {
+      "term": "Education:Gender:college degree:male",
+      "estimate": -0.0128,
+      "std_error": 0.0313
+    },
+    {
+      "term": "Education:Gender:graduate degree:male",
+      "estimate": -0.0362,
+      "std_error": 0.0311
+    }
+  ],
+  "weights": [
+    {
+      "term": "Country of Origin:Germany",
+      "estimate": 0.0495,
+      "std_error": 0.0206
+    },
+    {
+      "term": "Country of Origin:France",
+      "estimate": 0.0296,
+      "std_error": 0.0208
+    },
+    {
+      "term": "Country of Origin:Mexico",
+      "estimate": 0.0154,
+      "std_error": 0.0217
+    },
+    {
+      "term": "Country of Origin:Philippines",
+      "estimate": 0.0472,
+      "std_error": 0.021
+    },
+    {
+      "term": "Country of Origin:Poland",
+      "estimate": 0.038,
+      "std_error": 0.0206
+    },
+    {
+      "term": "Country of Origin:China",
+      "estimate": 0.0202,
+      "std_error": 0.021
+    },
+    {
+      "term": "Country of Origin:Sudan",
+      "estimate": -0.0211,
+      "std_error": 0.0213
+    },
+    {
+      "term": "Country of Origin:Somalia",
+      "estimate": -0.0188,
+      "std_error": 0.0207
+    },
+    {
+      "term": "Country of Origin:Iraq",
+      "estimate": -0.0738,
+      "std_error": 0.0216
+    },
+    {
+      "term": "Education:4th grade",
+      "estimate": 0.0219,
+      "std_error": 0.017
+    },
+    {
+      "term": "Education:8th grade",
+      "estimate": 0.0615,
+      "std_error": 0.0178
+    },
+    {
+      "term": "Education:high school",
+      "estimate": 0.1039,
+      "std_error": 0.0178
+    },
+    {
+      "term": "Education:two-year college",
+      "estimate": 0.1627,
+      "std_error": 0.0181
+    },
+    {
+      "term": "Education:college degree",
+      "estimate": 0.1911,
+      "std_error": 0.0184
+    },
+    {
+      "term": "Education:graduate degree",
+      "estimate": 0.1936,
+      "std_error": 0.0181
+    },
+    {
+      "term": "Gender:male",
+      "estimate": -0.0319,
+      "std_error": 0.0093
+    },
+    {
+      "term": "Language Skills:broken English",
+      "estimate": -0.0559,
+      "std_error": 0.0135
+    },
+    {
+      "term": "Language Skills:tried English but unable",
+      "estimate": -0.1113,
+      "std_error": 0.0136
+    },
+    {
+      "term": "Language Skills:used interpreter",
+      "estimate": -0.1496,
+      "std_error": 0.0137
+    }
+  ]
+}
